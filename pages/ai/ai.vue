@@ -17,6 +17,7 @@
 import axios from 'axios'
 import config from '@/config.js';
 const baseUrl = config.baseUrl;
+
 export default {
   data() {
     return {
