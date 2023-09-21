@@ -15,6 +15,8 @@
 
 <script>
 import axios from 'axios'
+import config from '@/config.js';
+const baseUrl = config.baseUrl;
 export default {
   data() {
     return {
@@ -26,7 +28,7 @@ export default {
     async askAI() {
       try{
         const res = await axios({
-          url: 'http://ai.nodefu.net/api/ai',
+          url: baseUrl + '/api/ai',
           method: 'POST',
           data: {
             question: this.question

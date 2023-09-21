@@ -10,6 +10,8 @@
 
 <script>
 import axios from 'axios';
+import config from '@/config.js';
+const baseUrl = config.baseUrl;
 
 export default {
   data() {
@@ -21,7 +23,7 @@ export default {
   methods: {
     async login() {
       try {
-        const res = await axios.post('http://ai.nodefu.net/api/login', {
+        const res = await axios.post(baseUrl + '/api/login', {
           email: this.email,
           password: this.password
         });
