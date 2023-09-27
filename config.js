@@ -1,5 +1,5 @@
-// const baseUrl = 'http://ai.nodefu.net'
-const baseUrl = 'http://127.0.0.1:3000'
+const baseUrl = 'http://ai.nodefu.net'
+// const baseUrl = 'http://127.0.0.1:3000'
 
 export default {
 	baseUrl,

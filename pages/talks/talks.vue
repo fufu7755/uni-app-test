@@ -1,11 +1,8 @@
 <template>
 	<view class="chat-container">
 		<view v-for="(message, index) in messages" :key="index" class="message-item"
-			:class="{ 'sent-message': message.type === 'sent', 'received-message': message.type === 'received' }">
-			<view class="message-content">
-				<view class="message-text">{{ message.text }}</view>
-			</view>
-			<view class="timestamp">{{ message.timestamp }}</view>
+			:class="{ 'sent-message': message.type === 'q', 'received-message': message.type === 'a' }">
+			<view class="message-text">{{ message.text }}</view>
 		</view>
 		<view class="chat-input">
 			<input v-model="newMessage" placeholder="Type your message...">
@@ -93,22 +90,22 @@
 			return {
 				messages: [{
 						text: 'Hello!',
-						type: 'received',
+						type: 'q',
 						timestamp: '12:30 PM'
 					},
 					{
 						text: 'Hi there!',
-						type: 'sent',
+						type: 'a',
 						timestamp: '12:32 PM'
 					},
 					{
 						text: 'How are you?',
-						type: 'sent',
+						type: 'q',
 						timestamp: '12:33 PM'
 					},
 					{
 						text: 'I\'m good, thanks!',
-						type: 'received',
+						type: 'a',
 						timestamp: '12:35 PM'
 					},
 				],
@@ -122,25 +119,33 @@
 			const bots = res.data.data
 			console.log(bots)
 			this.bots = res.data.data
-			// const talk = await axios({
-			// 	method: 'POST',
-			// 	url: baseUrl + '/api/talk/check',
-			// 	data: {
-			// 		q: bots[0]._id,
-			// 		a: bots[1]._id
-			// 	}
-			// })
+			const talk = await axios({
+				method: 'POST',
+				url: baseUrl + '/api/talk/check',
+				data: {
+					q: bots[0]._id,
+					a: bots[1]._id
+				}
+			})
+      console.log('talk', talk.data.data)
+      if (talk.data.success) {
+        this.talk = talk.data.data
+      }
 		},
 		methods: {
-			sendMessage() {
-				if (this.newMessage.trim() !== '') {
-					this.messages.push({
-						text: this.newMessage,
-						type: 'sent',
-						timestamp: this.getCurrentTimestamp()
-					});
-					this.newMessage = ''; // Clear the input after sending message
-				}
+			async sendMessage() {
+        if (this.newMessage.trim() === '') {
+        	return alert('信息不能为空！')
+        }
+        const res = await axios({
+          method: 'POST',
+          url: baseUrl + '/api/talk/send',
+          data: {
+            _id: this.talk._id,
+            q: this.newMessage
+          }
+        })
+				
 			},
 			getCurrentTimestamp() {
 				const now = new Date();
