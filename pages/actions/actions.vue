@@ -1,8 +1,9 @@
 <template>
   <view class="login-page">
     <view class="login-container">
-      <input v-model="email" type="text" placeholder="请输入邮箱" />
-      <input v-model="password" type="password" placeholder="请输入密码" />
+      <button class="btn" @click="userUpdate">用户信息修改</button>
+			<button class="btn" @click="botTalk">机器和机器对话</button>
+			<button class="btn" @click="humanBot">人和机器对话</button>
       <button @click="login">登录</button>
     </view>
   </view>
@@ -21,30 +22,25 @@ export default {
     };
   },
   methods: {
-    async login() {
-      try {
-        const res = await axios.post(baseUrl + '/api/login', {
-          email: this.email,
-          password: this.password
-        });
-        if (res.data.success) {
-          console.log('Login successful:', res.data);
-          uni.navigateTo({
-            url: '/pages/actions/actions'
-          });
-        } else {
-          console.log(res.data.err)
-        }        
-      } catch (error) {
-        // Handle errors
-        console.error('Login error:', error);
-      }
-    }
+		userUpdate () {
+			uni.navigateTo({
+				url: '/pages/update/update'
+			});
+		},
+    botTalk () {
+			uni.navigateTo({
+			  url: '/pages/bot-bot/bot-bot'
+			});
+		}
   }
 };
 </script>
 
 <style scoped lang="scss">
+.btn {
+	margin-bottom: 20px;
+}
+
 .login-page {
   display: flex;
   justify-content: center;
