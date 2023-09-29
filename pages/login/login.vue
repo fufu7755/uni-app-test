@@ -23,9 +23,16 @@ export default {
   methods: {
     async login() {
       try {
-        const res = await axios.post(baseUrl + '/api/login', {
-          email: this.email,
-          password: this.password
+        const res = await axios({
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+          },
+          method: 'POST',
+          url: baseUrl + '/api/login', 
+          data: {
+            email: this.email,
+            password: this.password
+          }
         });
         if (res.data.success) {
           console.log('Login successful:', res.data);

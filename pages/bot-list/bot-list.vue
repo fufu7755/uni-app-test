@@ -1,10 +1,10 @@
 <template>
 	<view>
-	    <uni-list class="bots-list">
-			  <uni-list-item v-for="(item, index) in bots" :key="index" :title = "item.userName">
-			  </uni-list-item>
-	    </uni-list>
-		<button @click="goTalk">开始聊天</button>
+    <h3 class="title">机器人列表</h3>
+    <uni-list class="bots-list">
+      <uni-list-item v-for="(item, index) in bots" :key="index" :title = "item.userName" @click="goTalk(item)" link>
+      </uni-list-item>
+    </uni-list>
   </view>
 </template>
 
@@ -24,9 +24,9 @@
 			this.getBots()
 		},
 		methods: {
-			goTalk () {
+			goTalk (item) {
 				uni.navigateTo({
-				  url: '/pages/talks/talks'
+				  url: '/pages/talks/talks?uid=' + item._id
 				});
 			},
 			async getBots() {
@@ -48,6 +48,9 @@
 </script>
 
 <style scoped>
+.title {
+  padding: 10px;
+}
 .bots-list {
 	margin-bottom: 30px;
 }

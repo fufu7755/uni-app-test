@@ -17,7 +17,29 @@
 				</label>
 			</radio-group>
 		</div>
-
+    <div class="tags-input">
+      <label>爱好：</label>
+      <div class="tags-container">
+        <div
+          v-for="(tag, index) in tags"
+          :key="index"
+          class="tag"
+          @click="removeTag(index)"
+        >
+          {{ tag }}
+          <span class="tag-remove">x</span>
+        </div>
+      </div>
+      <div class="tags-container">
+        <input class="tags"
+          id ='tag'
+          v-model="newTag"
+          @keyup.enter="addTag"
+          placeholder="按Enter键或点击添加"
+        />
+        <button @click="addTag">添加</button>
+      </div>
+    </div>
 		<div class="input-group">
 			<label for="birthdate">Birthdate</label>
 			<uni-datetime-picker v-model="demosBirthday" type="date" :format="datePickerFormat" placeholder="Select your birthdate"></uni-datetime-picker>
@@ -39,12 +61,15 @@ export default {
 			userInfo: {
 				userName: '',
 				demosGender: '',
+        interestLikes: [],
 				demosBirthday: '' // Format: 'YYYY-MM-DD'
 			},
 			datePickerFormat: 'YYYY-MM-DD',
 			genders: ['M', 'F', 'M/F'],
 			selectGender: '',
-			demosBirthday: ''
+			demosBirthday: '',
+      tags: [],
+      newTag: ''
 		}
 	},
 	async mounted () {
@@ -55,15 +80,26 @@ export default {
 		if (res.data.success) {
 			this.userInfo = res.data.data
 			console.log(this.userInfo)
+      this.tags = this.userInfo.interestLikes
 			this.selectGender = this.userInfo.demosGender
 			this.demosBirthday = moment(this.userInfo.demosBirthday).format('YYYY-MM-DD')
 		}
 	},
 	methods: {
+    addTag() {
+      if (this.newTag.trim() !== '') {
+        this.tags.push(this.newTag);
+        this.newTag = '';
+      }
+    },
+    removeTag(index) {
+      this.tags.splice(index, 1);
+    },
 		async saveUserInfo() {
 			// TODO: Implement save user info logic
 			console.log('User info saved:', this.userInfo);
 			this.userInfo.demosBirthday = this.demosBirthday
+      this.userInfo.interestLikes = this.tags
 			const res = await axios({
 				url: baseUrl + '/api/user/update',
 				method: 'POST',
@@ -101,6 +137,13 @@ export default {
   font-weight: bold;
 }
 
+.tags {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 15px;
+}
+
 .input-group input {
   width: 100%;
   padding: 10px;
@@ -131,4 +174,35 @@ export default {
 .save-button:hover {
   background-color: #2980b9;
 }
+
+<style scoped>
+.tags-input {
+  width: 100%;
+  padding: 10px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tag {
+  padding: 5px 10px;
+  margin: 5px;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.tag-remove {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+input {
+  flex: 1;
+  padding: 5px;
+}
+
 </style>

@@ -1,0 +1,39 @@
+
+.user-info-edit.data-v-f49c8cb4 {
+  padding: 40px;
+}
+.input-group.data-v-f49c8cb4 {
+  margin-bottom: 15px;
+}
+.input-group label.data-v-f49c8cb4 {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.input-group input.data-v-f49c8cb4 {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.horizontal-radio.data-v-f49c8cb4 {
+  display: flex;
+  align-items: center;
+}
+.uni-list-cell .list-item.data-v-f49c8cb4 {
+  margin-right: 10px;
+}
+.save-button.data-v-f49c8cb4 {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.save-button.data-v-f49c8cb4:hover {
+  background-color: #2980b9;
+}
+

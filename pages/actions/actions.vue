@@ -4,7 +4,7 @@
       <button class="btn" @click="userUpdate">用户信息修改</button>
 			<button class="btn" @click="botTalk">机器和机器对话</button>
 			<button class="btn" @click="humanBot">人和机器对话</button>
-      <button @click="login">登录</button>
+      <button @click="hToh">人和人对话</button>
     </view>
   </view>
 </template>
@@ -31,7 +31,17 @@ export default {
 			uni.navigateTo({
 			  url: '/pages/bot-bot/bot-bot'
 			});
-		}
+		},
+    humanBot () {
+      uni.navigateTo({
+        url: '/pages/bot-list/bot-list'
+      });
+    },
+    hToh () {
+      uni.navigateTo({
+        url: '/pages/human-list/human-list'
+      });
+    }
   }
 };
 </script>

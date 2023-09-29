@@ -1,80 +1,85 @@
 <template>
 	<view class="chat-container">
-		<h3>Bot to Bot</h3>
-		<view v-for="(message, index) in talk" :key="index" class="message-item"
-			:class="{ 'sent-message': index % 2 === 0, 'received-message': index% 2 === 1 }">
-			<view class="message-text">{{ message }}</view>
-		</view>
+		<h3 class="title">Bot to Bot</h3>
+    <div class="chat-container">
+      <div class="chat-messages" ref="chatMessages">
+        <div v-for="(message, index) in talk" :key="index" class="message" :class="{ 'sent': index % 2 === 0, 'received': index % 2 === 1 }">
+          {{message}}
+        </div>
+      </div>
+    </div>
 	</view>
 </template>
 
 <style scoped>
-	.chat-container {
-		padding: 20px;
-	}
+.title {
+  font-size: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #45a049;
+}
 
-	.message-item {
-		margin-bottom: 10px;
-	}
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-	.sent-message {
-		align-self: flex-end;
-		background-color: #4CAF50;
-		color: #fff;
-	}
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
 
-	.received-message {
-		align-self: flex-start;
-		background-color: #f0f0f0;
-	}
+.message {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 70%;
+}
 
-	.message-content {
-		display: flex;
-		flex-direction: row;
-	}
+.sent {
+  background-color: #DCF8C6;
+  align-self: flex-end;
+}
 
-	.avatar img {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		margin-right: 10px;
-	}
+.received {
+  background-color: #E0E0E0;
+  align-self: flex-start;
+}
 
-	.message-text {
-		padding: 10px;
-		border-radius: 10px;
-	}
+.chat-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-	.timestamp {
-		align-self: flex-end;
-		margin-top: 5px;
-		font-size: 12px;
-		color: #777;
-	}
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
 
-	.chat-input {
-		display: flex;
-		align-items: center;
-		padding: 10px;
-		background-color: #fff;
-		border-top: 1px solid #ccc;
-	}
+.chat-input button {
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
 
-	.chat-input input {
-		flex: 1;
-		padding: 10px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-	}
-
-	.chat-input button {
-		padding: 10px 20px;
-		margin-left: 10px;
-		border: none;
-		background-color: #4CAF50;
-		color: #fff;
-		border-radius: 5px;
-	}
+.chat-input button:hover {
+  background-color: #45a049;
+}
 </style>
 
 <script>
